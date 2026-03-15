@@ -1,0 +1,55 @@
+pipeline {
+ agent any
+
+ stages {
+
+  stage('Build') {
+   steps {
+    echo "Building application"
+   }
+  }
+
+  stage('Test') {
+   steps {
+    echo "Running tests"
+   }
+  }
+
+  stage('Deploy Dev') {
+   steps {
+    echo "Deploying to Dev server"
+   }
+  }
+
+  stage('Deploy Staging') {
+   steps {
+    echo "Deploying to Staging server"
+   }
+  }
+
+  stage('Manual Approval') {
+   steps {
+    input "Approve production deployment?"
+   }
+  }
+
+  stage('Deploy Production') {
+   steps {
+    echo "Deploying to Production server"
+   }
+  }
+
+ }
+
+ post {
+
+  success {
+   echo "Pipeline executed successfully ✅"
+  }
+
+  failure {
+   echo "Pipeline failed ❌"
+  }
+
+ }
+}

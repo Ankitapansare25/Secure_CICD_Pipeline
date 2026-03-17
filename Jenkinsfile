@@ -11,14 +11,14 @@ pipeline {
 
         stage('Deploy to Dev') {
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@52.66.231.75:/usr/share/nginx/html/'
+                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.203.23.101:/usr/share/nginx/html/'
                 echo "Deployed to Dev server"
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.201.169.203:/usr/share/nginx/html/'
+                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@3.108.197.30:/usr/share/nginx/html/'
                 echo "Deployed to Staging server"
             }
         }
@@ -31,7 +31,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@3.110.144.188:/usr/share/nginx/html/'
+                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@3.110.98.94:/usr/share/nginx/html/'
                 echo "Deployed to Production server"
             }
         }

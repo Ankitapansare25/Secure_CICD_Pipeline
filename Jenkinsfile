@@ -13,7 +13,11 @@ pipeline {
         stage('Deploy to Dev') {
             agent any
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@15.207.237.182:/usr/share/nginx/html/'
+                sshagent(['ec2-user']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@15.207.237.182:/usr/share/nginx/html/
+                    '''
+                }
                 echo "Deployed to Dev server"
             }
         }
@@ -21,7 +25,11 @@ pipeline {
         stage('Deploy to Staging') {
             agent any
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.202.79.75:/usr/share/nginx/html/'
+                sshagent(['ec2-user']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.202.79.75:/usr/share/nginx/html/
+                    '''
+                }
                 echo "Deployed to Staging server"
             }
         }
@@ -36,7 +44,11 @@ pipeline {
         stage('Deploy to Production') {
             agent any
             steps {
-                sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@43.205.108.206:/usr/share/nginx/html/'
+                sshagent(['ec2-user']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@43.205.108.206:/usr/share/nginx/html/
+                    '''
+                }
                 echo "Deployed to Production server"
             }
         }
@@ -51,4 +63,3 @@ pipeline {
         }
     }
 }
-

@@ -39,19 +39,19 @@ pipeline {
                 input message: "Approve production deployment?"
             }
         }
-
-      stage('Deploy to Production') {
-    steps {
-        sshagent(['new-key']) {
-            // Test connection first
-            sh 'ssh -o StrictHostKeyChecking=no ec2-user@13.204.91.120 "echo Connected"'
-
-            // Copy file to target
-            sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/usr/share/nginx/html/'
+    
+stage('Deploy to Production') {
+            
+            steps {
+                sshagent(['new-key']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/usr/share/nginx/html/
+                    '''
+                }
+                echo "Deployed to Production server"
+            }
         }
-        echo "Deployed to Production server"
     }
-}
     post {
         success {
             echo "Pipeline executed successfully!"
@@ -60,5 +60,4 @@ pipeline {
             echo "Pipeline failed!"
         }
     }
-}
 }

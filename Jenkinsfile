@@ -59,6 +59,7 @@ stage('Deploy to Production') {
         echo "Production stage finished"
     }
 }
+    }
     post {
         success {
             echo "Pipeline executed successfully!"

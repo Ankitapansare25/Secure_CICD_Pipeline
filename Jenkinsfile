@@ -51,6 +51,7 @@ pipeline {
                 echo "Deployed to Production server"
             }
         }
+    }
     post {
         success {
             echo "Pipeline executed successfully!"

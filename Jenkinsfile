@@ -40,16 +40,17 @@ pipeline {
             }
         }
 
-      stage('Deploy to Production') {
-    steps {
-        sshagent(['new-key']) {
-            sh 'ssh -o StrictHostKeyChecking=no ec2-user@13.204.91.120 "echo Connected"'
-            sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/tmp/'
-            sh 'ssh -o StrictHostKeyChecking=no ec2-user@13.204.91.120 "sudo mv /tmp/index.html /usr/share/nginx/html/"'
+      stage('Deploy to Production') { 
+
+            steps {
+                sshagent(['new-key']) {
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/usr/share/nginx/html/
+                    '''
+                }
+                echo "Deployed to Production server"
+            }
         }
-        echo "Deployed to Production server"
-    }
-}
     post {
         success {
             echo "Pipeline executed successfully!"

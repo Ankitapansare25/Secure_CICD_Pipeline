@@ -1,5 +1,5 @@
 pipeline {
-    agent none   
+    agent any
 
     stages {
 
@@ -11,7 +11,6 @@ pipeline {
         }
 
         stage('Deploy to Dev') {
-            agent any
             steps {
                 sshagent(['ec2-user']) {
                     sh '''
@@ -23,7 +22,7 @@ pipeline {
         }
 
         stage('Deploy to Staging') {
-            agent any
+        
             steps {
                 sshagent(['ec2-user']) {
                     sh '''
@@ -35,14 +34,15 @@ pipeline {
         }
 
         stage('Manual Approval') {
-            agent any
+            
             steps {
                 input message: "Approve production deployment?"
             }
         }
 
         stage('Deploy to Production') {
-            agent any
+            
+
             steps {
                 sshagent(['ec2-user']) {
                     sh '''
@@ -62,4 +62,4 @@ pipeline {
             echo "Pipeline failed!"
         }
     }
-}a
+}

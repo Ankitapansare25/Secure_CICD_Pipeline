@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sshagent(['new-key']) {
                     sh '''
-                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.203.96.150:/usr/share/nginx/html/
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@43.205.92.139:/usr/share/nginx/html/
                     '''
                 }
                 echo "Deployed to Dev server"
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sshagent(['new-key']) {
                     sh '''
-                    scp -o StrictHostKeyChecking=no index.html ec2-user@65.0.67.206:/usr/share/nginx/html/
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@52.66.216.253:/usr/share/nginx/html/
                     '''
                 }
                 echo "Deployed to Staging server"
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sshagent(['new-key']) {
                     sh '''
-                    scp -o StrictHostKeyChecking=no index.html ec2-user@65.0.56.175:/usr/share/nginx/html/
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/usr/share/nginx/html/
                     '''
                 }
                 echo "Deployed to Production server"

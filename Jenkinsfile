@@ -13,48 +13,46 @@ pipeline {
         stage('Deploy to Dev') {
             steps {
                 sshagent(['new-key']) {
-                    sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@43.205.92.139:/usr/share/nginx/html/'
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.200.217.134:/usr/share/nginx/html/
+                    '''
                 }
                 echo "Deployed to Dev server"
             }
         }
 
         stage('Deploy to Staging') {
+        
             steps {
                 sshagent(['new-key']) {
-                    sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@52.66.216.253:/usr/share/nginx/html/'
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.200.9.90:/usr/share/nginx/html/
+                    '''
                 }
                 echo "Deployed to Staging server"
             }
         }
 
         stage('Manual Approval') {
+            
             steps {
                 input message: "Approve production deployment?"
             }
         }
 
         stage('Deploy to Production') {
+            
+
             steps {
-                echo "Manual approval clicked — starting Production stage"
-
                 sshagent(['new-key']) {
-                    echo "SSH agent started"
-
-                    // Step 1: Test connection to Production EC2
-                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@13.204.91.120 "echo Connected to Production EC2"'
-                    echo "Connection to Production OK"
-
-                    // Step 2: Copy file to Production server
-                    sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@13.204.91.120:/usr/share/nginx/html/'
-                    echo "File copied to Production server successfully"
+                    sh '''
+                    scp -o StrictHostKeyChecking=no index.html ec2-user@13.202.46.86:/usr/share/nginx/html/
+                    '''
                 }
-
-                echo "Production stage finished"
+                echo "Deployed to Production server"
             }
         }
-
-    } // closes stages
+    }
 
     post {
         success {

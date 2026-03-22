@@ -40,6 +40,7 @@ pipeline {
     input message: "Approve production deployment?", ok: "Deploy"
          }
         }
+        }
 
         stage('Deploy to Production') {
             
@@ -63,5 +64,4 @@ pipeline {
             echo "Pipeline failed!"
         }
     }
-}
 }

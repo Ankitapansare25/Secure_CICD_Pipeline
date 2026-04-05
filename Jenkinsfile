@@ -43,18 +43,14 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            
 
-            steps {
-                sshagent(['new-key']) {
-                    sh '''
-                    scp -o StrictHostKeyChecking=no index.html ec2-user@52.66.215.160:/usr/share/nginx/html/
-                    '''
-                }
-                echo "Deployed to Production server"
-            }
+    steps {
+        sshagent(['new-key']) {
+            sh 'scp -o StrictHostKeyChecking=no index.html ec2-user@52.66.215.160:/usr/share/nginx/html/'
         }
+        echo "Deployed to Production server"
     }
+}
 
     post {
         success {

@@ -36,7 +36,7 @@ pipeline {
         stage('Manual Approval') {
             
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                timeout(time: 10, unit: 'MINUTES') {
     input message: "Approve production deployment?", ok: "Deploy"
          }
         }
